@@ -2,5 +2,7 @@
 name = "usbg"
 version = "0.1.0"
 authors = ["Xavier Stevens <xavier.stevens@gmail.com>"]
+edition = "2021"
 
 [dependencies]
+thiserror = "1"

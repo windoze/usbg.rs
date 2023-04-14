@@ -1,8 +1,5 @@
 extern crate usbg;
 
-use std::path::PathBuf;
-use std::fs;
-
 use usbg::UsbGadget;
 use usbg::UsbGadgetState;
 use usbg::UsbGadgetFunction;
@@ -41,9 +38,7 @@ fn main() {
     g1.functions.push(hid_function.clone());
 
     // add configuration
-    let mut c1_functions: Vec<Box<UsbGadgetFunction>> = Vec::new();
-    c1_functions.push(hid_function.clone());
-    c1_functions.push(rndis_fuction.clone());
+    let c1_functions: Vec<Box<dyn UsbGadgetFunction>> = vec![hid_function.clone(), rndis_fuction.clone()];
 
     let c1 = UsbGadgetConfig {
         id: 1,
@@ -54,7 +49,7 @@ fn main() {
     };
     g1.configs.push(c1);
 
-    let mut usb_state = UsbGadgetState::new();
+    let mut usb_state = UsbGadgetState::new().unwrap();
     // usb_state.udc_name("someudc.hg0");
 
     // if you want test against a temp directory you can uncomment this
